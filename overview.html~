@@ -30,13 +30,11 @@
 
 </artice>
 
-    <br />
-
-    <nav>
-        <ul>
-            <li><a rel="Internal" href="./index.html">home</a></li>
-        </ul>
-    </nav>
+<nav>
+    <ul>
+        <li><a rel="Internal" href="./index.html">home</a></li>
+    </ul>
+</nav>
 
 </body>
 </html>
