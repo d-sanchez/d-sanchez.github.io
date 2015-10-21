@@ -13,9 +13,10 @@ int symbolTableDebug = 0;
 
 int rowNum = 1;
 int tabSize = 4;
-int column = 1;
+int column = 0;
 
-
+char * buffer;
+long bufferSize;
 bool lookUpMode = 0; 
 
 node * symbolTable;
@@ -30,10 +31,41 @@ int main(int argc, char **argv)
   int options = 0;
   FILE * testFile;
   
+    testFile = fopen(argv[1], "r");
+    if (!testFile) {
+	    printf("Error opening Test File!\n");
+	    return -1;
+    }
+    
+  
+    //Read testFile into a buffer
+    
+        fseek( testFile , 0L , SEEK_END);
+        bufferSize = ftell( testFile );
+        rewind( testFile );
+
+        /* allocate memory for entire content */
+        buffer = calloc( 1, bufferSize+1 );
+        if( !buffer ) fclose(testFile),fputs("memory alloc fails",stderr),exit(1);
+
+        /* copy the file into the buffer */
+        if( 1!=fread( buffer , bufferSize, 1 , testFile) )
+          fclose(testFile),free(buffer),fputs("entire read fails",stderr),exit(1);
+
+        /* do your work here, buffer is a string contains the whole text */
+
+        fclose(testFile);
+    
+            
+    testFile = fopen(argv[1], "r");
   //Initiate SymTable
   symbolTable = createTable(symbolTable);
   symbolTable = pushLevel(symbolTable,0);
+  
 
+  
+  
+  
   //Parse the command line for debugging options
   while ((options = getopt (argc, argv, "-d[lsp]")) != -1){ 
     switch (options)
@@ -54,14 +86,7 @@ int main(int argc, char **argv)
       }
       
      } 
-      
-    testFile = fopen("testFile.c", "r");
-	//Open our test C file(s)
-	if (!testFile) {
-		printf("Error opening Test File!\n");
-		return -1;
-	}
-	
+
 
   
     
@@ -84,6 +109,8 @@ int main(int argc, char **argv)
         fclose(symbolTableFile);
         
     }
+    
+    free(buffer);
         	  
 	
 }

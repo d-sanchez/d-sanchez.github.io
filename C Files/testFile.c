@@ -1,5 +1,5 @@
-
 int main(){
-const int x = 5;
-int y = 3;
+
+int x = 4323;
+
 }

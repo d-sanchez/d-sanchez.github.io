@@ -9,7 +9,7 @@ void yyerror(char *);
 
 %union {
 	int iVal;
-	double fVal;
+	double dVal;
 	char * sVal;
 	char * identifierName;
 
@@ -119,8 +119,9 @@ declaration_list
 	| declaration_list declaration
 		{if(parseDebug){
 			fprintf(parseFile,"declaration_list <- declaration_list declaration \n\n");
-			}
 			fprintf(parseFile,"Look up is true \n\n");
+			}
+		
 			lookUpMode = true;
 		}
 	;
@@ -139,8 +140,9 @@ declaration_specifiers
 	| type_specifier
 		{if(parseDebug){
 			fprintf(parseFile,"declaration_specifiers <- type_specifier \n\n");
-			}
 			fprintf(parseFile,"Insert Mode \n\n");
+			}
+			
 		    lookUpMode = false;
 			 
 		}
@@ -166,26 +168,44 @@ storage_class_specifier
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- AUTO \n\n");
 			}
+			
+			//Set Flag
+			flags.auto_flag = true;
 		}	
 	| REGISTER
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- REGISTER  \n\n");
 			}
+			
+			//Set Flag
+			flags.register_flag = true;
 		}
 	| STATIC
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- STATIC \n\n");
 			}
+			
+						
+			//Set Flag
+			flags.static_flag = true;
+
 		}
 	| EXTERN
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- EXTERN \n\n");
 			}
+			
+			//Set Flag
+			flags.extern_flag = true;
 		}
 	| TYPEDEF
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- TYPEDEF \n\n");
 			}
+			
+			
+			//Set Flag
+			flags.typedef_flag = true;
 		}
 	;
 
@@ -194,61 +214,97 @@ type_specifier
 		{if(parseDebug){
 			fprintf(parseFile,"type_specifier <- VOID \n\n");
 			}
+			
+			//Set Flag
+			flags.void_flag = true;
 		}
 	| CHAR
 		{if(parseDebug){
 			fprintf(parseFile,"type_specifier <- CHAR \n\n");
 			}
+			
+			//Set Flag
+			flags.char_flag = true;
 		}
 	| SHORT
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- SHORT \n\n");
 			}
+			
+			//Set Flag
+			flags.short_flag = true;
 		}
 	| INT
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- INT \n\n");
 			}
+			
+			//Set Flag
+			flags.int_flag = true;
 		}
 	| LONG
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- LONG \n\n");
 			}
+			
+			//Set Flag
+			flags.long_flag = true;
 		}
 	| FLOAT 
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- FLOAT \n\n");
 			}
+			
+			//Set Flag
+			flags.float_flag = true;
 		}
 	| DOUBLE
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- DOUBLE \n\n");
 			}
+			
+			//Set Flag
+			flags.double_flag = true;
 		}
 	| SIGNED
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- SIGNED \n\n");
 			}
+			
+			//Set Flag
+			flags.signed_flag = true;
 		}
 	| UNSIGNED
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- UNSIGNED \n\n");
 			}
+			
+			//Set Flag
+			flags.unsigned_flag = true;
 		}
 	| struct_or_union_specifier
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- struct_or_union_specifier \n\n");
 			}
+			
+			//Set Flag
+			flags.struct_flag = true;
 		}
 	| enum_specifier
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- enum_specifier \n\n");
 			}
+			
+			//Set Flag
+			flags.enum_flag = true;
 		}
 	| TYPEDEF_NAME
 		{if(parseDebug){
 			fprintf(parseFile,"storage_class_specifier <- TYPEDEF_NAME \n\n");
 			}
+			
+			//Set Flag
+			flags.typedef_flag = true;
 		}
 	;
 
@@ -266,6 +322,9 @@ type_qualifier
 		{if(parseDebug){
 			fprintf(parseFile,"type_qualifier <- VOLATILE \n\n");
 			}
+			
+			//Set Flag
+			flags.volatile_flag = true;
 		}
 	;
 
@@ -1338,6 +1397,7 @@ constant
 	: INTEGER_CONSTANT  {
 	            if(currentIdentifier != NULL){
 	                
+	                currentIdentifier->dataI = (int *) malloc(sizeof(int));
 	                currentIdentifier->dataI = yylval.iVal;
                 }
 	            if(parseDebug){
@@ -1345,11 +1405,17 @@ constant
 			    }
 	         }
 	| CHARACTER_CONSTANT {
-
-	        
+	
+	            if(currentIdentifier != NULL){
+	                
+	                currentIdentifier->dataC = (char *) malloc(sizeof(char));
+	                currentIdentifier->dataC = yylval.sVal;
+                }
 	            if(parseDebug){
-			        fprintf(parseFile,"CONSTANT -> INTEGER_CONSTANT \n\n");
+			        fprintf(parseFile,"CONSTANT <- CHARACTER_CONSTANT \n\n");
 			    }
+
+
 	         }
 	| FLOATING_CONSTANT {	        
 	
@@ -1357,6 +1423,9 @@ constant
 	            if(parseDebug){
 			        fprintf(parseFile,"CONSTANT ->FLOATING_CONSTANT \n\n");
 			    }
+			    
+	                
+	               currentIdentifier->dataD = yylval.dVal;
 	         }
 	| ENUMERATION_CONSTANT {	        
 	        
@@ -1369,8 +1438,11 @@ constant
 string
 	: STRING_LITERAL
 	    {
-	
-	        
+	            if(currentIdentifier != NULL){
+	                
+	                currentIdentifier->dataC = (char *) malloc(sizeof(yylval.sVal));
+	                currentIdentifier->dataC = yylval.sVal;
+                }
 	            if(parseDebug){
 			        fprintf(parseFile,"string ->STRING_LITERAL \n\n");
 			    }
@@ -1392,7 +1464,8 @@ identifier
 	          currentIdentifier = findIdentifier(symbolTable->treePtr, n);
 	          if(currentIdentifier != NULL){
 	          
-	            printf("Already Declared\n");
+	            yyerror("Already Declared ");
+	            return -1;
 	          
 	          }
 	          symbolTable->treePtr = insertIdentifier(symbolTable->treePtr,n,flags ); 
@@ -1406,8 +1479,8 @@ identifier
 	        currentIdentifier = findIdentifier(symbolTable->treePtr, n);
             if(currentIdentifier == NULL){
             
-                fprintf(parseFile,"ERROR: identifier,%s, not declared \n", $1);
-                return;
+                
+                yyerror("Variable Not Declared ");
             
             }
 	  
@@ -1420,11 +1493,40 @@ identifier
 %%
 
 
-void yyerror(char * msg)
+void yyerror(char *msg)
 {
-        fprintf(parseFile,"%s \n",msg);
-       
-}
 
+    int index, lineTracker = 0, lineCount = 0;
+    
+    
+    for(index = 0 ; index < rowNum - 1; index++){
+    
+        while(buffer[lineTracker] != '\n'){
+            
+            lineTracker++;
+            
+            
+        }
+        lineTracker++;
+        lineCount++;
+    }
+    if(lineCount < rowNum  ){
+    while(buffer[lineTracker] != '\n'){
+    
+    if(lineTracker < bufferSize){
+     printf("%c", buffer[lineTracker]);
+     
+     }
+     lineTracker++;
+    
+    }
+    }
+    printf("\n");
+    for(index = 0; index < column-rowNum; index++){
+        printf(" ");
+    }
+    printf("^\n");
+    printf("\t%s line %d and column: %d\n", msg, rowNum, column);
+}
 
 

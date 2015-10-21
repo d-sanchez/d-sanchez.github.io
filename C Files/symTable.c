@@ -87,11 +87,46 @@ void printIdentifiers(treeNode *leaf)
                 return;
         }
         
-        /* LISTITEM */ 
+
+    
+        //Check Flags 
         printIdentifiers(leaf->left);
         if(leaf->flags.const_flag){fprintf(symbolTableFile,"const ");}
+        if(leaf->flags.static_flag){fprintf(symbolTableFile,"static ");}
+        if(leaf->flags.short_flag){fprintf(symbolTableFile,"short ");}
+        if(leaf->flags.long_flag){fprintf(symbolTableFile,"long ");}
+        if(leaf->flags.float_flag){fprintf(symbolTableFile,"float ");}
+        if(leaf->flags.double_flag){fprintf(symbolTableFile,"double ");}
+        if(leaf->flags.signed_flag){fprintf(symbolTableFile,"signed ");}
+        if(leaf->flags.unsigned_flag){fprintf(symbolTableFile,"unsigned ");}
+        if(leaf->flags.struct_flag){fprintf(symbolTableFile,"struct ");}
+        if(leaf->flags.enum_flag){fprintf(symbolTableFile,"enum ");}
+        if(leaf->flags.typedef_flag){fprintf(symbolTableFile,"typedef ");}
+        if(leaf->flags.char_flag){fprintf(symbolTableFile,"char ");}
+        if(leaf->flags.int_flag){fprintf(symbolTableFile,"int ");}
+        if(leaf->flags.volatile_flag){fprintf(symbolTableFile,"volatile ");}
+        if(leaf->flags.void_flag){fprintf(symbolTableFile,"void ");}
+        
         fprintf(symbolTableFile,"%s    ",leaf->name);
-        fprintf(symbolTableFile,"Value: %d\n",leaf->dataI);
+        if(leaf->dataC != NULL){
+        
+            fprintf(symbolTableFile,"Value: %s\n",leaf->dataC);
+        }
+        
+        else if(leaf->dataI != NULL){
+            fprintf(symbolTableFile,"Value: %d\n",leaf->dataI);
+            
+        }
+        
+        else if(leaf->flags.float_flag){
+                 fprintf(symbolTableFile,"Value: %f\n",leaf->dataD);
+        
+        }
+        else{
+            fprintf(symbolTableFile,"Value: None \n");
+        
+        
+        }
         printIdentifiers(leaf->right);
 }
 
@@ -105,6 +140,21 @@ treeNode * insertIdentifier(treeNode *leaf,int data, flagContainer flagInfo)
                 temp -> id = data;
                 temp -> left = temp -> right = NULL;
                 temp->flags.const_flag = flagInfo.const_flag;
+                temp->flags.static_flag = flagInfo.static_flag;
+                temp->flags.short_flag = flagInfo.short_flag;
+                temp->flags.long_flag = flagInfo.long_flag;
+                temp->flags.float_flag = flagInfo.float_flag;
+                temp->flags.double_flag = flagInfo.double_flag;
+                temp->flags.signed_flag = flagInfo.signed_flag;
+                temp->flags.unsigned_flag = flagInfo.unsigned_flag;
+                temp->flags.struct_flag = flagInfo.struct_flag;
+                temp->flags.enum_flag = flagInfo.enum_flag;
+                temp->flags.typedef_flag = flagInfo.typedef_flag;
+                temp->flags.char_flag = flagInfo.char_flag;
+                temp->flags.int_flag = flagInfo.int_flag;
+                temp->flags.auto_flag = flagInfo.auto_flag;
+                temp->flags.register_flag = flagInfo.register_flag;
+                temp->flags.extern_flag = flagInfo.extern_flag;
                 return temp;
         }
 
@@ -116,6 +166,8 @@ treeNode * insertIdentifier(treeNode *leaf,int data, flagContainer flagInfo)
         {
                 leaf->left = insertIdentifier(leaf->left,data, flagInfo);
         }
+        
+          
 
         return leaf;
 

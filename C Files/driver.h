@@ -10,9 +10,13 @@
 extern bool lexDebug;
 extern bool parseDebug;
 extern bool symbolTableDebug;
+extern char *buffer;
+extern long bufferSize;
 extern FILE *lexFile;
 extern FILE *parseFile;
 extern FILE *symbolTableFile;
+extern FILE *fullOutputFile;
+
 	
 extern bool lookUpMode; 
 
@@ -46,7 +50,10 @@ typedef struct FlagTypes
     bool unsigned_flag;   
     bool struct_flag;
     bool enum_flag;
-    bool typedef_id;
+    bool typedef_flag;
+    bool char_flag;
+    bool int_flag;
+    bool volatile_flag;
 
 
     //Storage Flag	
@@ -64,11 +71,9 @@ typedef struct treeNode
 
     flagContainer  flags;        
     //Data Containers
-    int dataI;
-    float dataF;
-    char dataC;
-    char * dataS;
-    int dataE;
+    int * dataI;
+    float dataD;
+    char * dataC;
     
     int declerationLineNumber; 
     int id;
@@ -84,6 +89,8 @@ typedef struct treeNode
 
 
 //Global data that will be defined in main.c
+
+
 extern node * symbolTable;
 
 extern treeNode* currentIdentifier; 
