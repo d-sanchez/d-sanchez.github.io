@@ -178,16 +178,58 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 10 "grammar.y" /* yacc.c:1909  */
+#line 11 "grammar.y" /* yacc.c:1909  */
 
 	int iVal;
-	double dVal;
+	float dVal;
 	char * sVal;
 	char * identifierName;
+	
+	
+  struct TranslationUnitNode * translation_unit_node;
+  struct ExternalDeclarationNode * external_declaration_node;
+  struct FunctionDefinitionNode * function_definition_node;
+  struct CompoundStatementNode * compound_statement_node;
+  struct DeclarationListNode * declaration_list_node;
+  struct StatementListNode * statement_list_node;
+  struct DeclarationNode * declaration_node;
+  struct DeclarationSpecifiersNode * declaration_specifier_node;
+  struct TypeSpecifierNode * type_specifier_node;
+  struct StorageClassSpecifierNode * storage_class_specifier_node;
+  struct DeclaratorNode * declarator_node;
+  struct InitDeclaratorNode * init_declarator_node;
+  struct InitDeclaratorListNode * init_declarator_list_node;
+  struct DirectDeclaratorNode * direct_declarator_node;
+  struct treeNode * indentifier_node;
+  struct ConstantExpressionNode * constant_expression_node;
+  struct ConditionalExpressionNode * conditional_expression_node;
+  struct StatementNode * statement_node;
+  struct SelectionStatementNode * selection_statement_node;
+  struct IterationStatementNode * iteration_statement_node;
+  struct ExpressionNode * expression_node;
+  struct AssignmentExpressionNode * assignment_expression_node;
+  struct InitializerNode * initializer_node;
+  struct LogicalOrExpression * logical_or_expression_node;
+  struct LogicalAndExpression * logical_and_expression_node;
+  struct InclusiveOrExpression * inclusive_or_expression_node;
+  struct AndExpressionNode * and_expression_node;
+  struct EqualityExpressionNode * equality_expression_node;
+  struct RelationalExpressionNode * relational_expression_node;
+  struct PrimaryExpressionNode * primary_expression_node;
+  struct PostfixExpressionNode * postfix_expression_node;
+  struct UnaryExpressionNode * unary_expression_node;
+  struct CastExpressionNode * cast_expression_node;
+  struct MultiplicativeExpressionNode * multiplicative_expression_node; 
+  struct ShiftExpressionNode * shift_expression_node;
+  struct AdditiveExpressionNode * additive_expression_node;
+  struct ExclusiveOrExpressionNode * exclusive_or_expression_node; 
+  struct ExpressionStatementNode * expression_statement_node;
+  struct ConstantNode * constant_node;
+  struct AssignmentOperatorNode * assignment_operator_node;
+  struct InitializerListNode * initializer_list_node; 
 
 
-
-#line 191 "y.tab.h" /* yacc.c:1909  */
+#line 233 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
