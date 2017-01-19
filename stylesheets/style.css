@@ -19,3 +19,27 @@ a {
     text-decoration: none;
     font-size: 20px;
 }
+
+/* for vertical line in header between github, email, about links */
+.verticalLine {
+    
+    border-left:    solid #000000;
+    display:inline-block;
+    padding: 0em 1em 0 1em;
+
+}
+
+/* Bootstrap stuff */
+
+
+.picture{
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+}
+
+.picture:hover {
+    border-color: #f1f1f1;
+}
