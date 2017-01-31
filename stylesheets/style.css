@@ -1,25 +1,12 @@
 .container {
-    padding: 80px 120px;
+    padding: 0px 50px 0px 50px;
 }
-
-/*
-#header { 
-    position:absolute;
-}*/
-
-/*
-.main {
-    position: absolute;
-}
-*/
 
 body{
     font-family: 'Cutive Mono', monospace;
 }
 
 /* links */
-
-
 ul#nav{
     list-style: none;
     padding:0;
@@ -60,4 +47,5 @@ a:hover {
 
 .picture:hover {
     border-color: #f1f1f1;
+
 }

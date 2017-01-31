@@ -15,14 +15,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- Font -->
-    <link href="https://font.googleapis.com/css?family=Cutive+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet">
 
     <!-- Thumbnails -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel ="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- CSS -->
-    <link href="stylesheets/style.css" rel="stylesheet">
+     <link href="stylesheets/style.css" rel="stylesheet"> 
 
     <!-- Google Analytics -->
     <script>
@@ -41,11 +41,13 @@
 <body>    
   
 
+  <div class ="container">
         <h1>
             Daniel Sanchez
         </h1>
 
 	<ul id="nav">
+	    <a href="index"> <i class="fa fa-home " style="color:black"></i></a>
             <a href="about"> About</a>
             <a href="projects"> Projects</a>
 	    <a href="resume"> Resume </a>
@@ -53,14 +55,10 @@
             <a href="mailto:danielsanchez@nevada.unr.edu" target="_blank"> <i class="fa fa-envelope " style="color:black"></i></a>
         </ul>
 
+  </div>
         
     <div id="content"></div>
-
-    <!-- jQuery library -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
-    <!-- <script src="js/jquery-3.1.1.min.js"></script> -->
     <script src="js/general.js"></script>
 
-    <!-- </div> -->
 </body>
 </html>

@@ -22,4 +22,10 @@ $(document).ready(function(){
 	// when you decide not to be lazy anymore look this up
         return false;
     });
+	
+    /*$('h1').click(function(){
+	// e.preventDefault();
+	// (".main").load("dsanchez.io");
+	// return false;
+    });*/
 });
