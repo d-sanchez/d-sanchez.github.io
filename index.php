@@ -59,6 +59,8 @@
         
     <div id="content"></div>
     <script src="js/general.js"></script>
+    <script src="js/modernizer.custom.js"></script>
+
 
 </body>
 </html>
