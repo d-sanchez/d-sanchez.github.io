@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- Welcome to my scrubish html code -->
-
+<!-- Test -->
 <html>
 <head>
     <meta name "viewport" content="width=device-width, initial-scale=1">
@@ -56,7 +56,7 @@
         </ul>
 
   </div>
-        
+
     <div id="content"></div>
     <script src="js/general.js"></script>
     <script src="js/modernizer.custom.js"></script>
